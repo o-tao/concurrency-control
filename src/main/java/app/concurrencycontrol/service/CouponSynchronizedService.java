@@ -13,14 +13,14 @@ public class CouponSynchronizedService {
     private final CouponService couponService;
 
     // 선언적 Transactional 제거
-    public synchronized void decreaseCouponWithoutTransactional(Long couponId) {
+    public synchronized void decreaseWithoutTransactional(Long couponId) {
         Coupon coupon = validateCoupon(couponId);
         coupon.decrease();
         couponRepository.save(coupon);
     }
 
     // 외부 메서드 호출
-    public synchronized void decreaseCouponWithExternalCall(Long couponId) {
+    public synchronized void decreaseWithExternalCall(Long couponId) {
         couponService.decrease(couponId);
     }
 

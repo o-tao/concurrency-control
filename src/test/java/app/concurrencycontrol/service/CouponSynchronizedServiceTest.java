@@ -24,7 +24,7 @@ class CouponSynchronizedServiceTest {
 
     @Test
     @DisplayName("쿠폰 수량이 300개일 때, @Transactional 없이 synchronized로 처리하면 수량이 0이 된다.")
-    public void decreaseCouponWithoutTransactionalTest() throws InterruptedException {
+    public void decreaseWithoutTransactionalTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
         couponRepository.save(coupon);
@@ -37,7 +37,7 @@ class CouponSynchronizedServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.execute(() -> {
                 try {
-                    couponSynchronizedService.decreaseCouponWithoutTransactional(coupon.getId());
+                    couponSynchronizedService.decreaseWithoutTransactional(coupon.getId());
                 } finally {
                     latch.countDown();
                 }
@@ -53,7 +53,7 @@ class CouponSynchronizedServiceTest {
 
     @Test
     @DisplayName("쿠폰 수량이 300개일 때, 외부 메서드를 synchronized로 호출하여 처리하면 수량이 0이 된다.")
-    public void decreaseCouponWithExternalCallTest() throws InterruptedException {
+    public void decreaseWithExternalCallTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
         couponRepository.save(coupon);
@@ -66,7 +66,7 @@ class CouponSynchronizedServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.execute(() -> {
                 try {
-                    couponSynchronizedService.decreaseCouponWithExternalCall(coupon.getId());
+                    couponSynchronizedService.decreaseWithExternalCall(coupon.getId());
                 } finally {
                     latch.countDown();
                 }
