@@ -4,6 +4,7 @@ import app.concurrencycontrol.domain.Coupon;
 import app.concurrencycontrol.domain.repository.CouponRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,8 @@ class CouponServiceTest {
     private CouponService couponService;
 
     @Test
-    public void couponTest() throws InterruptedException {
+    @DisplayName("쿠폰 수량 감소 시 동시성 제어 문제로 인해 수량이 올바르게 감소되지 않는다.")
+    public void couponDecreaseTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
         couponRepository.save(coupon);
