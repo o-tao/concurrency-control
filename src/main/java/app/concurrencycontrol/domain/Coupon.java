@@ -26,6 +26,13 @@ public class Coupon {
     }
 
     public void decrease() {
+        validateDecrease();
         this.quantity--;
+    }
+
+    private void validateDecrease() {
+        if (this.quantity < 1) {
+            throw new IllegalStateException("쿠폰이 모두 소진되었습니다.");
+        }
     }
 }
