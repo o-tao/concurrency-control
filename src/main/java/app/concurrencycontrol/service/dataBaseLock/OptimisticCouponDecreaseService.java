@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class CouponDecreaseService {
+public class OptimisticCouponDecreaseService {
 
     private final OptimisticCouponRepository optimisticCouponRepository;
 
