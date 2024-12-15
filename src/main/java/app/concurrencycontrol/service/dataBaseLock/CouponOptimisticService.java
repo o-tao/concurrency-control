@@ -11,12 +11,12 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 public class CouponOptimisticService {
 
-    private final CouponDecreaseService couponDecreaseService;
+    private final OptimisticCouponDecreaseService optimisticCouponDecreaseService;
 
     public void decreaseWithOptimisticLock(Long couponId) {
         for (int i = 0; i < 100; i++) {
             try {
-                couponDecreaseService.decrease(couponId);
+                optimisticCouponDecreaseService.decrease(couponId);
                 return;
             } catch (ObjectOptimisticLockingFailureException | OptimisticLockException e) {
                 try {
