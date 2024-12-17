@@ -29,7 +29,7 @@ class CouponOptimisticServiceTest {
         OptimisticCoupon optimisticCoupon = new OptimisticCoupon("COUPON_001", 300L);
         optimisticCouponRepository.save(optimisticCoupon);
 
-        int threadCount = 50;
+        int threadCount = 300;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
