@@ -12,7 +12,7 @@ public class CouponNamedService {
     private final CouponRepository couponRepository;
     private final CouponService couponService;
 
-    public void decrease(Long couponId) {
+    public void decreaseWithNamedLock(Long couponId) {
         try {
             couponRepository.getLock(couponId.toString());
             couponService.decrease(couponId);

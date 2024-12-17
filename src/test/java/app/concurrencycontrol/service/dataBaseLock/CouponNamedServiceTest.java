@@ -23,8 +23,8 @@ class CouponNamedServiceTest {
     private CouponNamedService couponNamedService;
 
     @Test
-    @DisplayName("쿠폰 수량 감소 시 동시성 제어 문제로 인해 수량이 올바르게 감소되지 않는다.")
-    public void couponDecreaseTest() throws InterruptedException {
+    @DisplayName("Named, 네임드 잠금을 사용해 쿠폰 감소 작업이 동시성 문제 없이 완료된다.")
+    public void decreaseWithNamedLockTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
         couponRepository.save(coupon);
@@ -37,7 +37,7 @@ class CouponNamedServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.execute(() -> {
                 try {
-                    couponNamedService.decrease(coupon.getId());
+                    couponNamedService.decreaseWithNamedLock(coupon.getId());
                 } finally {
                     latch.countDown();
                 }
