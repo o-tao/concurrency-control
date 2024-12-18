@@ -23,7 +23,7 @@ class CouponServiceTest {
     private CouponService couponService;
 
     @Test
-    @DisplayName("쿠폰 수량 감소 시 동시성 제어 문제로 인해 수량이 올바르게 감소되지 않는다.")
+    @DisplayName("쿠폰 수량이 레이스 컨디션 문제로 인해 수량이 올바르게 감소되지 않는다.")
     public void couponDecreaseTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
