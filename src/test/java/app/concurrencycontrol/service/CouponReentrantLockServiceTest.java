@@ -24,7 +24,7 @@ class CouponReentrantLockServiceTest {
     private CouponReentrantLockService couponReentrantLockService;
 
     @Test
-    @DisplayName("쿠폰 수량이 300개일 때, ReentrantLock을 사용해 쿠폰 감소 작업이 동시성 문제 없이 완료된다.")
+    @DisplayName("ReentrantLock을 사용해 쿠폰 감소 작업이 동시성 문제 없이 완료된다.")
     public void decreaseWithReentrantLockTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
