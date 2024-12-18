@@ -23,7 +23,7 @@ class CouponSynchronizedServiceTest {
     private CouponSynchronizedService couponSynchronizedService;
 
     @Test
-    @DisplayName("쿠폰 수량이 300개일 때, @Transactional 없이 synchronized로 처리하면 수량이 0이 된다.")
+    @DisplayName("Transactional 없이 synchronized를 사용해 쿠폰 감소 작업이 동시성 문제 없이 완료된다.")
     public void decreaseWithoutTransactionalTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
@@ -52,10 +52,10 @@ class CouponSynchronizedServiceTest {
     }
 
     @Test
-    @DisplayName("쿠폰 수량이 300개일 때, 외부 메서드를 synchronized로 호출하여 처리하면 수량이 0이 된다.")
+    @DisplayName("외부 메서드를 synchronized로 호출하여 쿠폰 감소 작업이 동시성 문제 없이 완료된다.")
     public void decreaseWithExternalCallTest() throws InterruptedException {
         // given
-        Coupon coupon = new Coupon("COUPON_001", 300L);
+        Coupon coupon = new Coupon("COUPON_002", 300L);
         couponRepository.save(coupon);
 
         int threadCount = 300;
