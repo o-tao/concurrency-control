@@ -29,7 +29,9 @@ public class CouponRedissonLockService {
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
         } finally {
-            lock.unlock();
+            if (lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
         }
     }
 }
