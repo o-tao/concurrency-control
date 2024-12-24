@@ -23,7 +23,7 @@ class CouponServiceTest {
     private CouponService couponService;
 
     @Test
-    @DisplayName("쿠폰 수량이 레이스 컨디션 문제로 인해 수량이 올바르게 감소되지 않는다.")
+    @DisplayName("300개의 스레드에서 동시에 300번 쿠폰 수량 감소 요청 시 남은 쿠폰 수량은 0이다.")
     public void couponDecreaseTest() throws InterruptedException {
         // given
         Coupon coupon = new Coupon("COUPON_001", 300L);
@@ -48,7 +48,7 @@ class CouponServiceTest {
         // then
         Coupon persistedCoupon = couponRepository.findById(coupon.getId()).orElseThrow();
         log.info("잔여 쿠폰 수량 {}", persistedCoupon.getQuantity());
-        Assertions.assertThat(persistedCoupon.getQuantity()).isNotZero();
+        Assertions.assertThat(persistedCoupon.getQuantity()).isZero();
     }
 
 }

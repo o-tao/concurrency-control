@@ -14,7 +14,8 @@ public class CouponSynchronizedService {
 
     // 선언적 Transactional 제거
     public synchronized void decreaseWithoutTransactional(Long couponId) {
-        Coupon coupon = validateCoupon(couponId);
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿠폰입니다."));
         coupon.decrease();
         couponRepository.save(coupon);
     }
@@ -22,12 +23,6 @@ public class CouponSynchronizedService {
     // 외부 메서드 호출
     public synchronized void decreaseWithExternalCall(Long couponId) {
         couponService.decrease(couponId);
-    }
-
-    private Coupon validateCoupon(Long couponId) {
-        return couponRepository.findById(couponId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 쿠폰입니다.")
-        );
     }
 }
 

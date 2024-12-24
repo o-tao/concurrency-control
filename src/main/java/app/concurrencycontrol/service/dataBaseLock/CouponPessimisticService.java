@@ -15,14 +15,9 @@ public class CouponPessimisticService {
 
     @Transactional
     public void decrease(Long couponId) {
-        Coupon pessimisticCoupon = validateCoupon(couponId);
+        Coupon pessimisticCoupon = couponRepository.findByIdWithPessimisticLock(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿠폰입니다."));
         pessimisticCoupon.decrease();
-    }
-
-    private Coupon validateCoupon(Long couponId) {
-        return couponRepository.findByIdWithPessimisticLock(couponId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 쿠폰입니다.")
-        );
     }
 }
 

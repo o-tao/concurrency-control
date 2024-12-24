@@ -15,13 +15,8 @@ public class CouponService {
 
     @Transactional
     public void decrease(Long couponId) {
-        Coupon coupon = validateCoupon(couponId);
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿠폰입니다."));
         coupon.decrease();
-    }
-
-    private Coupon validateCoupon(Long couponId) {
-        return couponRepository.findById(couponId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 쿠폰입니다.")
-        );
     }
 }
